@@ -90,3 +90,90 @@ db.getCollection('teacher').aggregate([
        }
    }
 ])
+
+
+
+
+----------------------------------------------------------------------------- find
+Пошук через АБО :
+db.getCollection('teacher').find({ 
+    $or: [ 
+        { payment: 2500 }, 
+        { payment: 2000 }, 
+        { class_curator: 8 } 
+    ] 
+})
+
+Пошук через I :
+db.getCollection('teacher').find({ 
+    $and: [ 
+        { payment: 2500 }, 
+        { class_curator: 6 } 
+    ] 
+})
+
+
+
+Сортування :
+db.getCollection('teacher') 
+.find({}) 
+.sort({ payment: -1, name: 1 })       // payment - головне
+.limit(2).skip(4)                     // limit-ofset
+
+
+
+db.getCollection('teacher').find({ 
+    payment: { 
+        $gte: 2500             //  >= 
+        $gt: 2500              //  > 
+        $lte: 2500             //  <= 
+        $lt: 2500              //  <          
+    } 
+})
+
+
+IN
+db.getCollection('teacher').find({ 
+    class_curator: { $in: [7, 8, 9] }    // якщо співпадає хоч з одним з [ ]
+})
+
+
+NIN 
+db.getCollection('teacher').find({ 
+    class_curator: { $nin: [7, 8, 9] }   // якщо не співпадає з жодним з [ ] 
+})
+
+db.getCollection('teacher').find({ 
+    class_curator: {
+         $not: {                         // виведе все що не підійшло по внутр. умові
+             $in: [7, 8, 9] 
+         }
+    } 
+})
+
+
+db.getCollection('teacher').find({  
+    "cars.model": "Volve"                // виводе тих в кого САRS має 2 елемента 
+})
+
+db.getCollection('teacher').find({ 
+    cars: { $size: 2 }                   // виводе тих в кого САRS має 2 елемента
+})
+
+db.getCollection('teacher').find({
+    cars: { $exists: false }             // виводе тільки тих які не мають поля  САRS
+})
+
+
+
+Р Е Г У Л Я Р К И
+
+db.getCollection('teacher').find({      
+    name: /^s/i                          // початок
+})
+db.getCollection('teacher').find({ 
+    name: /.*a.*/                        // середина
+})
+db.getCollection('teacher').find({ 
+    name: /ch$/i                         // кінець 
+})
