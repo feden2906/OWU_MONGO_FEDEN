@@ -203,3 +203,12 @@ db.getCollection('teacher').update(
     }} 
     { multi: 1 } 
 )
+
+
+
+----------------------------------------------------------------------------- remove
+db.getCollection('teacher').remove( 
+    { 
+        girl: true                                   // об'єкт пошуку   
+    }
+)
