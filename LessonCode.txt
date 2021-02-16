@@ -177,3 +177,29 @@ db.getCollection('teacher').find({
 db.getCollection('teacher').find({ 
     name: /ch$/i                         // кінець 
 })
+
+
+
+----------------------------------------------------------------------------- update
+b.getCollection('teacher').update( 
+    {},       // умова пошуку 
+    {},       // що оновлюємо 
+    {}        // OPTIONS 
+)
+
+
+
+db.getCollection('teacher').update( 
+    { lesson: 'basic' }, 
+    { $set: { girl: true } },                   // без set замінює все наповнення, з - створює нове
+    { multi: 1 }                                // дає можливість оновити всі співпадіння
+)
+
+
+db.getCollection('teacher').update( 
+    { cars: { $size: 4 }} 
+    { $set: {  
+       "cars.$[].model": "Bibika"             // перебираючи cars в кожному елементі замінюємо поле model
+    }} 
+    { multi: 1 } 
+)
