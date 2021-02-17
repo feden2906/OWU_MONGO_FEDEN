@@ -162,3 +162,32 @@ db.getCollection('students').find(
 )
 
 18) Знайти найуспішніший клас
+db.getCollection('students').aggregate([
+    {
+        $group: {
+            _id: "$class",
+            classAVG: {
+                $avg: "$avgScore"
+            },
+            childrenCount: {
+                $sum: 1
+            }
+        },
+    },
+    {
+        $limit: 1
+    },
+    {
+        $sort: {
+            classAVG: -1
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            class: "$_id",
+            childrenCount: 1,
+            classAVG: 1
+        }
+    }
+])
