@@ -139,6 +139,17 @@ db.getCollection('students').remove(
 )
 
 16) Дітям, батьки яких працюють в освіті ( teacher ) поставити 5
+db.getCollection('students').update(
+    {
+        "parents.profession": 'teacher'
+    },
+    {
+        $set: { avgScore: 5 }
+    },
+    {
+        multi: 1
+    }
+)
 
 17) Знайти дітей які вчаться в початковій школі (до 5 класу) і вивчають фізику ( physics )
 
