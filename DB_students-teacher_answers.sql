@@ -117,21 +117,26 @@ db.getCollection('students').find(
 )
 
 14) Не працюючих батьків влаштувати офіціантами
-db.getCollection('students').update(
-    {
-        parents: { $exists: true },
-        "parents.profession": null    
-    },
-    {  
-        $set:{ 'parents.$[elem].profession': 'Waitress' }
-    },
-    { 
-        "arrayFilters": [{ "elem.profession": null }],
-        multi: 1
+db.getCollection('students').update(    <----------- updateMany ----
+    {                                                              |
+        parents: { $exists: true },                                |
+        "parents.profession": null                                 |
+    },                                                             |
+    {                                                             те саме
+        $set:{ 'parents.$[elem].profession': 'Waitress' }          |
+    },                                                             |
+    {                                                              |
+        "arrayFilters": [{ "elem.profession": null }],             |
+        multi: 1         <------------------------------ multi ----|
     }
 )
 
 15) Вигнати дітей, які мають середній бал менше ніж 2.5
+db.getCollection('students').remove(
+    {
+        avgScore: { $lt: 2.5 }
+    }
+)
 
 16) Дітям, батьки яких працюють в освіті ( teacher ) поставити 5
 
