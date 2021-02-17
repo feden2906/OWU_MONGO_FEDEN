@@ -152,5 +152,13 @@ db.getCollection('students').update(
 )
 
 17) Знайти дітей які вчаться в початковій школі (до 5 класу) і вивчають фізику ( physics )
+db.getCollection('students').find(
+    {
+        $and: [
+            { class: { $lte: 4 } },
+            { lessons: "physics" }   
+        ]
+    }
+)
 
 18) Знайти найуспішніший клас
