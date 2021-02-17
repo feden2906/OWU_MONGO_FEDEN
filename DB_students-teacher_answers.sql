@@ -79,8 +79,30 @@ db.getCollection('students').aggregate([
 ])
 
 11) Знайти середній бал по 2 класі
+db.getCollection('students').aggregate([
+    {
+        $match: {
+             class: 2
+        } 
+    },
+    {
+        $group: {
+            _id: 0,
+            AVG: {
+                $avg: "$avgScore"
+            }
+        }
+    },
+    {
+        $project: {
+            "_id": 0,
+            AVG: 1
+        }
+    }  
+])
 
 12) Знайти дітей з не повною сімєю
+
 
 13) Знайти батьків які не працюють
 
