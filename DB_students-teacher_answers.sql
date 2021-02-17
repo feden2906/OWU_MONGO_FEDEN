@@ -109,6 +109,12 @@ db.getCollection('students').find(
 )
 
 13) Знайти батьків які не працюють
+db.getCollection('students').find(
+    {
+        parents: { $exists: true },
+        "parents.profession": null    
+    } 
+)
 
 14) Не працюючих батьків влаштувати офіціантами
 
